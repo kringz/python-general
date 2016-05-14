@@ -4,35 +4,40 @@ import socket
 import sys
 
 file_object = open('list.txt', 'r')
-line = file_object.readline()
+#line = file_object.readline()
 
+#for i in input:
+for line in file_object.readlines():
+	values = line.split()
 
-if len(line) !=2:
-	print "Usage: vrfy.py <username>"
-	print line
+	if len(values) > 2:
+		print "Below 2 Characters or None"
+	else:
+	
+		print "Usage: vrfy.py <username>"
+		print line
+		
+	# Create a Socket
+		s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-# Create a Socket
+	# Connect to a server
+	
+		connect=s.connect(('192.168.15.237',25))
 
-s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	# Receive the banner
 
-# Connect to a server
+		banner=s.recv(1024)
 
-connect=s.connect(('192.168.15.229',25))
+		print banner
 
-# Receive the banner
+	# VRFY a user
 
-banner=s.recv(1024)
+		s.send('VRFY ' + line  + '\r\n')
 
-print banner
+		result=s.recv(1024)
 
-# VRFY a user
+		print result
+#		print "hi"
+	# Close the socket
 
-s.send('VRFY ' + line  + '\r\n')
-
-result=s.recv(1024)
-
-print result
-print "hi"
-# Close the socket
-
-s.close()
+		s.close()
