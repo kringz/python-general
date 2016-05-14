@@ -1,5 +1,9 @@
 #!/usr/bin/python
 
+#
+# Stephen Krings
+#
+
 #import errno
 #from socket import error as socket_error
 import socket
